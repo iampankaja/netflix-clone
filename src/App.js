@@ -1,12 +1,13 @@
 import React from 'react';
 
-import NavigationBar from './components/Navigation';
+import MainShow from './components/mainShow';
 
 const App = () => (
   <div>
-    <header>
-      <NavigationBar />
-    </header>
+    <header />
+    <main>
+      <MainShow />
+    </main>
   </div>
 );
 
