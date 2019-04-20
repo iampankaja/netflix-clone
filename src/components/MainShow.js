@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import Loader from 'react-loader-spinner';
 import styled from 'styled-components';
 
-import { BACKDROP_PATH } from '../constatnts/routes';
+import ShowDetails from './ShowDetails';
 
-import fetchMainShow from '../actions';
+import { fetchMainShow } from '../actions';
 
 const MainShowDiv = styled.div`
   background-position: center center;
@@ -15,6 +15,13 @@ const MainShowDiv = styled.div`
   background-size: contain;
   width: 100vw;
   height: 100vh;
+`;
+
+const Show = styled.div`
+  position: absolute;
+  top: 20%;
+  width: 30%;
+  left: 10%;
 `;
 
 class MainShow extends Component {
@@ -25,7 +32,7 @@ class MainShow extends Component {
 
   render() {
     const { loading, mainShow } = this.props;
-
+    const youtubeKey = !mainShow ? mainShow.videos.results[0].key : null;
     return (
       <div>
         {loading ? (
@@ -40,9 +47,18 @@ class MainShow extends Component {
         ) : (
           <MainShowDiv
             style={{
-              backgroundImage: `url(${BACKDROP_PATH}${mainShow.backdrop_path})`,
+              backgroundImage:
+                "url('https://movieposterhd.com/wp-content/uploads/2019/03/Game-of-Thrones-Season-8-Full-Cast-Poster-HD.jpg')",
             }}
-          />
+          >
+            <Show>
+              <ShowDetails
+                name={mainShow.name}
+                overview={mainShow.overview}
+                youtubeKey={youtubeKey}
+              />
+            </Show>
+          </MainShowDiv>
         )}
       </div>
     );
@@ -61,7 +77,11 @@ const mapStateToProps = state => ({
 MainShow.propTypes = {
   fetchMainShow: PropTypes.func.isRequired,
   loading: PropTypes.bool.isRequired,
-  mainShow: PropTypes.shape.isRequired,
+  mainShow: PropTypes.shape,
+};
+
+MainShow.defaultProps = {
+  mainShow: {},
 };
 
 export default connect(

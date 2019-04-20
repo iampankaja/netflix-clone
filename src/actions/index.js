@@ -21,16 +21,38 @@ const fetchMainShowBegins = () => ({
   type: FETCH_MAIN_SHOW_BEGINS,
 });
 
-const getMainShow = () => dispatch => {
+export const fetchMainShow = () => dispatch => {
   dispatch(fetchMainShowBegins());
-  const popularMovies = `${API_URL}/tv/popular?api_key=${
+  const gameofThrones = `${API_URL}/tv/1399?api_key=${
     config.MOVIE_DB_API_KEY
-  }`;
+  }&append_to_response=videos`;
   axios
-    .get(popularMovies)
+    .get(gameofThrones)
     .then(response => response.data)
-    .then(data => dispatch(fetchMainShowSuccess(data.results[0])))
+    .then(data => dispatch(fetchMainShowSuccess(data)))
     .catch(err => dispatch(fetchMainShowFailure(err)));
 };
 
-export default getMainShow;
+const fetchShowsBegin = () => ({
+  type: FETCH_MAIN_SHOW_BEGINS,
+});
+
+const fetchShowsSuccess = show => ({
+  type: FETCH_MAIN_SHOW_SUCCESS,
+  payload: show,
+});
+
+const fetchShowsFailure = error => ({
+  type: FETCH_MAIN_SHOW_FAILURE,
+  payload: error,
+});
+
+export const fetchShow = type => dispatch => {
+  dispatch(fetchShowsBegin());
+  const apiRequest = `${API_URL}/tv/${type}?api_key=${config.MOVIE_DB_API_KEY}`;
+  axios
+    .get(apiRequest)
+    .then(response => response.data)
+    .then(data => dispatch(fetchShowsSuccess(data)))
+    .catch(err => dispatch(fetchShowsFailure(err)));
+};
