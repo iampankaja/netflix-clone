@@ -1,13 +1,8 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import PropTypes from 'prop-types';
-import Loader from 'react-loader-spinner';
+import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 import ShowDetails from './ShowDetails';
-
-import { fetchMainShow } from '../actions';
 
 const MainShowDiv = styled.div`
   background-position: center center;
@@ -24,67 +19,29 @@ const Show = styled.div`
   left: 10%;
 `;
 
-class MainShow extends Component {
-  componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment
-    this.props.fetchMainShow();
-  }
-
-  render() {
-    const { loading, mainShow } = this.props;
-    const youtubeKey = !mainShow ? mainShow.videos.results[0].key : null;
-    return (
-      <div>
-        {loading ? (
-          <>
-            <Loader
-              type="CradleLoader"
-              color="#00BFFF"
-              height="100"
-              width="100"
-            />
-          </>
-        ) : (
-          <MainShowDiv
-            style={{
-              backgroundImage:
-                "url('https://movieposterhd.com/wp-content/uploads/2019/03/Game-of-Thrones-Season-8-Full-Cast-Poster-HD.jpg')",
-            }}
-          >
-            <Show>
-              <ShowDetails
-                name={mainShow.name}
-                overview={mainShow.overview}
-                youtubeKey={youtubeKey}
-              />
-            </Show>
-          </MainShowDiv>
-        )}
-      </div>
-    );
-  }
-}
-
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ fetchMainShow }, dispatch);
-
-const mapStateToProps = state => ({
-  mainShow: state.mainShow.show,
-  loading: state.mainShow.loading,
-  error: state.mainShow.error,
-});
+const MainShow = ({ name, overview, youtubeKey }) => (
+  <MainShowDiv
+    style={{
+      backgroundImage:
+        "url('https://movieposterhd.com/wp-content/uploads/2019/03/Game-of-Thrones-Season-8-Full-Cast-Poster-HD.jpg')",
+    }}
+  >
+    <Show>
+      <ShowDetails name={name} overview={overview} youtubeKey={youtubeKey} />
+    </Show>
+  </MainShowDiv>
+);
 
 MainShow.propTypes = {
-  fetchMainShow: PropTypes.func.isRequired,
-  loading: PropTypes.bool.isRequired,
-  mainShow: PropTypes.shape,
+  name: PropTypes.string,
+  overview: PropTypes.string,
+  youtubeKey: PropTypes.string,
 };
 
 MainShow.defaultProps = {
-  mainShow: {},
+  name: null,
+  overview: null,
+  youtubeKey: null,
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MainShow);
+export default MainShow;

@@ -58,13 +58,15 @@ const ShowDetails = ({ name, overview, youtubeKey }) => (
 );
 
 ShowDetails.propTypes = {
-  name: PropTypes.string.isRequired,
-  overview: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  overview: PropTypes.string,
   youtubeKey: PropTypes.string,
 };
 
 ShowDetails.defaultProps = {
   youtubeKey: null,
+  name: null,
+  overview: null,
 };
 
 export default ShowDetails;

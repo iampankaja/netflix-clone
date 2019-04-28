@@ -1,8 +1,4 @@
-import {
-  FETCH_SHOWS_BEGINS,
-  FETCH_SHOWS_FAILURE,
-  FETCH_SHOWS_SUCCESS,
-} from '../constatnts/actionTypes';
+import { POPULAR_SHOWS } from '../constatnts/actionTypes';
 
 const initialMainShowState = {
   show: {},
@@ -12,19 +8,19 @@ const initialMainShowState = {
 
 export default function(state = initialMainShowState, action) {
   switch (action.type) {
-    case FETCH_SHOWS_BEGINS:
+    case POPULAR_SHOWS.BEGINS:
       return {
         ...state,
         loading: true,
         error: false,
       };
-    case FETCH_SHOWS_SUCCESS:
+    case POPULAR_SHOWS.SUCCESS:
       return {
         ...state,
         loading: false,
         show: action.payload,
       };
-    case FETCH_SHOWS_FAILURE:
+    case POPULAR_SHOWS.FAILURE:
       return {
         ...state,
         loading: false,

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import MainShow from './components/MainShow';
+import Main from './containers/Main';
 import ShowLists from './components/ShowLists';
 
 const App = () => (
   <div>
     <header />
     <main>
-      <MainShow />
+      <Main />
       <div>
         <ShowLists />
       </div>

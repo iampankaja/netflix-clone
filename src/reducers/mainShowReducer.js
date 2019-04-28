@@ -1,8 +1,4 @@
-import {
-  FETCH_MAIN_SHOW_SUCCESS,
-  FETCH_MAIN_SHOW_FAILURE,
-  FETCH_MAIN_SHOW_BEGINS,
-} from '../constatnts/actionTypes';
+import { MAIN_SHOW } from '../constatnts/actionTypes';
 
 const initialMainShowState = {
   show: {},
@@ -12,19 +8,19 @@ const initialMainShowState = {
 
 export default function(state = initialMainShowState, action) {
   switch (action.type) {
-    case FETCH_MAIN_SHOW_BEGINS:
+    case MAIN_SHOW.BEGINS:
       return {
         ...state,
         loading: true,
         error: false,
       };
-    case FETCH_MAIN_SHOW_SUCCESS:
+    case MAIN_SHOW.SUCCESS:
       return {
         ...state,
         loading: false,
         show: action.payload,
       };
-    case FETCH_MAIN_SHOW_FAILURE:
+    case MAIN_SHOW.FAILURE:
       return {
         ...state,
         loading: false,
