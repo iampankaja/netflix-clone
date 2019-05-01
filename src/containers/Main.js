@@ -13,7 +13,8 @@ class Main extends Component {
     const { getMainShow, getShows } = this.props;
 
     await getMainShow();
-    await getShows();
+    await getShows('popular');
+    await getShows('top_rated');
   }
 
   render() {

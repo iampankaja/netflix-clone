@@ -1,7 +1,7 @@
 import React from 'react';
 
 import Main from './containers/Main';
-import ShowLists from './components/ShowLists';
+import ShowList from './components/ShowList';
 
 const App = () => (
   <div>
@@ -9,7 +9,7 @@ const App = () => (
     <main>
       <Main />
       <div>
-        <ShowLists />
+        <ShowList />
       </div>
     </main>
   </div>

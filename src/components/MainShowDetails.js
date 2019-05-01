@@ -34,7 +34,7 @@ const Button = styled.button`
   }
 `;
 
-const ShowDetails = ({ name, overview, youtubeKey }) => (
+const MainShowDetails = ({ name, overview, youtubeKey }) => (
   <div>
     <Title>{name}</Title>
     <Button
@@ -57,16 +57,16 @@ const ShowDetails = ({ name, overview, youtubeKey }) => (
   </div>
 );
 
-ShowDetails.propTypes = {
+MainShowDetails.propTypes = {
   name: PropTypes.string,
   overview: PropTypes.string,
   youtubeKey: PropTypes.string,
 };
 
-ShowDetails.defaultProps = {
+MainShowDetails.defaultProps = {
   youtubeKey: null,
   name: null,
   overview: null,
 };
 
-export default ShowDetails;
+export default MainShowDetails;

@@ -5,7 +5,6 @@ import {
   MAIN_SHOW,
   POPULAR_SHOWS,
   TOP_RATED_SHOWS,
-  LATEST_SHOWS,
 } from '../constatnts/actionTypes';
 import { showCategory } from '../constatnts/other';
 
@@ -35,24 +34,24 @@ export const fetchMainShow = () => dispatch => {
     .catch(err => dispatch(fetchMainShowFailure(err)));
 };
 
-const fetchShowsBegin = () => ({
-  type: POPULAR_SHOWS.BEGINS,
-});
+const fetchShowsBegin = category => {
+  if (category === showCategory.POPULAR) {
+    return { type: POPULAR_SHOWS.BEGINS };
+  }
+  if (category === showCategory.TOP_RATED) {
+    return { type: TOP_RATED_SHOWS.BEGINS };
+  }
+  return {};
+};
 
-const fetchShowsSuccess = (type, shows) => {
-  if (type === showCategory.POPULAR) {
+const fetchShowsSuccess = (category, shows) => {
+  if (category === showCategory.POPULAR) {
     return {
       type: POPULAR_SHOWS.SUCCESS,
       payload: shows,
     };
   }
-  if (type === showCategory.LATEST) {
-    return {
-      type: LATEST_SHOWS.SUCCESS,
-      payload: shows,
-    };
-  }
-  if (type === showCategory.TOP_RATED) {
+  if (category === showCategory.TOP_RATED) {
     return {
       type: TOP_RATED_SHOWS.SUCCESS,
       payload: shows,
@@ -64,17 +63,33 @@ const fetchShowsSuccess = (type, shows) => {
   };
 };
 
-const fetchShowsFailure = error => ({
-  type: POPULAR_SHOWS.FAILURE,
-  payload: error,
-});
+const fetchShowsFailure = (category, error) => {
+  if (category === showCategory.POPULAR) {
+    return {
+      type: POPULAR_SHOWS.FAILURE,
+      payload: error,
+    };
+  }
+  if (category === showCategory.TOP_RATED) {
+    return {
+      type: TOP_RATED_SHOWS.FAILURE,
+      payload: error,
+    };
+  }
+  return {
+    type: 'ERROR',
+    payload: error,
+  };
+};
 
-export const fetchShows = type => dispatch => {
-  dispatch(fetchShowsBegin());
-  const apiRequest = `${API_URL}/tv/${type}?api_key=${config.MOVIE_DB_API_KEY}`;
+export const fetchShows = category => dispatch => {
+  dispatch(fetchShowsBegin(category));
+  const apiRequest = `${API_URL}/tv/${category}?api_key=${
+    config.MOVIE_DB_API_KEY
+  }`;
   axios
     .get(apiRequest)
     .then(response => response.data)
-    .then(data => dispatch(fetchShowsSuccess(type, data)))
-    .catch(err => dispatch(fetchShowsFailure(err)));
+    .then(data => dispatch(fetchShowsSuccess(category, data)))
+    .catch(err => dispatch(fetchShowsFailure(category, err)));
 };

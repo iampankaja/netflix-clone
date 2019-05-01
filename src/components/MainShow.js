@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
-import ShowDetails from './ShowDetails';
+import MainShowDetails from './MainShowDetails';
 
 const MainShowDiv = styled.div`
   background-position: center center;
@@ -27,7 +27,11 @@ const MainShow = ({ name, overview, youtubeKey }) => (
     }}
   >
     <Show>
-      <ShowDetails name={name} overview={overview} youtubeKey={youtubeKey} />
+      <MainShowDetails
+        name={name}
+        overview={overview}
+        youtubeKey={youtubeKey}
+      />
     </Show>
   </MainShowDiv>
 );

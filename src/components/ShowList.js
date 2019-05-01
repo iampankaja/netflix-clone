@@ -1,20 +1,36 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-const ShowCard = styled.div`
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  transition: 0.3s;
-  width: 20%;
+import ShowCard from './ShowCard';
+
+const List = styled.div`
+  overflow: hidden;
 `;
 
-const ShowContainer = styled.div`
-  padding: 2px 16px;
-`;
-
-const ShowList = () => (
-  <ShowCard>
-    <ShowContainer>List</ShowContainer>
-  </ShowCard>
+const ShowList = ({ type, shows }) => (
+  <>
+    <div>
+      <h3>{type}</h3>
+    </div>
+    <List>
+      {shows !== undefined
+        ? shows.results.map(show => (
+            <ShowCard name={show.name} imageUrl={show.backdrop_path} />
+          ))
+        : ''}
+    </List>
+  </>
 );
+
+ShowList.propTypes = {
+  type: PropTypes.string,
+  shows: PropTypes.shape,
+};
+
+ShowList.defaultProps = {
+  type: '',
+  shows: undefined,
+};
 
 export default ShowList;

@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux';
 
 import mainShow from './mainShowReducer';
-import tvShows from './tvshowsReducer';
+import { popularShowReducer, topRatedShowReducer } from './tvshowsReducer';
 
 const rootReducer = combineReducers({
   mainShow,
-  tvShows,
+  popularTvShows: popularShowReducer,
+  // latestTvShows: latestShowReducer,
+  topRatedTvShows: topRatedShowReducer,
 });
 
 export default rootReducer;
