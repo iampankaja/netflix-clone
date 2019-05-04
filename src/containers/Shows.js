@@ -16,7 +16,13 @@ class Shows extends Component {
   }
 
   render() {
-    return <div />;
+    const { popularShows = {}, topRatedShows = {} } = this.props;
+    return (
+      <div>
+        <ShowList type="Popular" shows={popularShows} />
+        <ShowList type="Top rated" shows={topRatedShows} />
+      </div>
+    );
   }
 }
 
@@ -29,18 +35,21 @@ const mapDispatchToProps = dispatch =>
   );
 
 const mapStateToProps = state => ({
-  showDetails: state.mainShow.show,
+  popularShows: state.popularTvShows.showDetails,
+  topRatedShows: state.topRatedTvShows.showDetails,
   loading: state.mainShow.loading,
   error: state.mainShow.error,
 });
 
 Shows.propTypes = {
   getShows: PropTypes.func.isRequired,
-  showDetails: PropTypes.shape,
+  popularShows: PropTypes.shape,
+  topRatedShows: PropTypes.shape,
 };
 
 Shows.defaultProps = {
-  showDetails: PropTypes.objectOf(PropTypes.string),
+  popularShows: PropTypes.objectOf(PropTypes.string),
+  topRatedShows: PropTypes.objectOf(PropTypes.string),
 };
 
 export default connect(

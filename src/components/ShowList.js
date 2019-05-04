@@ -2,6 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
+import { objIsEmpty } from '../utils';
+
 import ShowCard from './ShowCard';
 
 const List = styled.div`
@@ -14,9 +16,13 @@ const ShowList = ({ type, shows }) => (
       <h3>{type}</h3>
     </div>
     <List>
-      {shows !== undefined
+      {!objIsEmpty(shows)
         ? shows.results.map(show => (
-            <ShowCard name={show.name} imageUrl={show.backdrop_path} />
+            <ShowCard
+              name={show.name}
+              imageUrl={show.backdrop_path}
+              key={show.name}
+            />
           ))
         : ''}
     </List>
